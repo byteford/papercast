@@ -1,0 +1,12 @@
+[{
+  "modid": "papercast",
+  "name": "PaperCast",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "assets/examplemod/textures/logo.png",
+  "url": "",
+  "updateJSON": "",
+  "authorList": ["Byteford"],
+  "credits": "",
+}]
