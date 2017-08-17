@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "papercast:magicinfuser"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

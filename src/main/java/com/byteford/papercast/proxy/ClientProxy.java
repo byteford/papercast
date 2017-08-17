@@ -1,5 +1,6 @@
 package com.byteford.papercast.proxy;
 
+import com.byteford.papercast.block.BlockManager;
 import com.byteford.papercast.items.ItemManager;
 
 
@@ -15,16 +16,14 @@ public class ClientProxy extends CommonProxy{
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		System.out.println("preInt");
 		super.preInit(event);
 		
 		
 	}
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event) {
-		System.out.println("setUp Modles");
 		ItemManager.initModels();
-		
+		BlockManager.initModels();
 	}
 	
 }

@@ -1,7 +1,9 @@
 package com.byteford.papercast.proxy;
 
-import com.byteford.papercast.items.MagicPaper;
+import com.byteford.papercast.block.BlockManager;
+import com.byteford.papercast.items.ItemManager;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,8 +27,12 @@ public class CommonProxy {
 	}
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		System.out.println("register");
-		event.getRegistry().registerAll(new MagicPaper());
+		ItemManager.registerItems(event);
+		BlockManager.registerItems(event);
+	}
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		BlockManager.regiserBlocks(event);
 	}
 
 }
