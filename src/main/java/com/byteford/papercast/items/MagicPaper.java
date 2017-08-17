@@ -8,7 +8,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
@@ -29,6 +31,18 @@ public class MagicPaper extends Item {
 		return 200;
 	}
 	@Override
+	public String getUnlocalizedName() {
+		// TODO Auto-generated method stub
+		return super.getUnlocalizedName();
+	}
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
+		if(stack.hasTagCompound())
+			if(stack.getTagCompound().hasKey("type"))
+					return paperType.values()[stack.getTagCompound().getInteger("type")].toString() + ": " + Potion.getPotionById(stack.getTagCompound().getInteger("effect")).getName();
+		return super.getItemStackDisplayName(stack);
+	}
+	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
 		// TODO Auto-generated method stub
 		return EnumAction.BOW;
@@ -37,6 +51,11 @@ public class MagicPaper extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		 ItemStack itemstack = playerIn.getHeldItem(handIn);
 	        boolean flag = true;
+	        ItemStack stack = playerIn.getHeldItem(handIn);
+	        if(!stack.hasTagCompound())
+	        	return new ActionResult(EnumActionResult.FAIL, itemstack);
+	        if(!stack.getTagCompound().hasKey("type"))
+	        	return new ActionResult(EnumActionResult.FAIL, itemstack);
 
 	        if (!playerIn.capabilities.isCreativeMode && !flag)
 	        {
