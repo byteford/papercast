@@ -1,5 +1,8 @@
 package com.byteford.papercast.items;
 
+import com.byteford.papercast.paperCast;
+import com.byteford.papercast.Util.paperType;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,12 +16,13 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
+
 public class MagicPaper extends Item {
 	public MagicPaper() {
 		super();
 		setRegistryName("magicpaper");
 		setUnlocalizedName("magicpaper");
-		setCreativeTab(CreativeTabs.MISC);
+		setCreativeTab(paperCast.tabPapercast);
 	}
 	public int getMaxItemUseDuration(ItemStack stack) {
 		// TODO Auto-generated method stub
@@ -44,14 +48,35 @@ public class MagicPaper extends Item {
 	            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 	        }
 	}
+	public Boolean BuffPaper(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+		if(stack.getTagCompound().hasKey("effect") && stack.getTagCompound().hasKey("duration") && stack.getTagCompound().hasKey("amplifier")){
+			int effect = stack.getTagCompound().getInteger("effect");
+			int duration = stack.getTagCompound().getInteger("duration");
+			int amplifier = stack.getTagCompound().getInteger("amplifier");			
+			entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(effect),duration,amplifier));
+			return true;
+		}		
+		return false;
+	}
+	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if(stack.hasTagCompound()) {
-			int effect = stack.getTagCompound().getInteger("effect");
-			int duration = stack.getTagCompound().getInteger("duration");
-			int amplifier = stack.getTagCompound().getInteger("amplifier");
+			paperType type = paperType.values()[stack.getTagCompound().getInteger("type")];
+			Boolean success = false;
+			switch(type) {
+			case buff:
+				success = BuffPaper(stack,worldIn,entityLiving,timeLeft);
+				break;
+			case conjuration:
+				break;
+			case projectile:
+				break;
+			default:
+				break; 
+			}
+			if(success)
 			stack.shrink(1);
-			entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(effect),duration,amplifier));
 		}
 		
 		super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);

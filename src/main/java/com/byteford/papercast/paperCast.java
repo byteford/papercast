@@ -3,8 +3,11 @@ package com.byteford.papercast;
 
 import org.apache.logging.log4j.Logger;
 
+import com.byteford.papercast.items.ItemManager;
 import com.byteford.papercast.proxy.CommonProxy;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -35,6 +38,15 @@ public class paperCast {
 	
 	public paperCast() {
 	}
+	
+	public static final CreativeTabs tabPapercast = new CreativeTabs("papercast") {
+		
+		@Override
+		public ItemStack getTabIconItem() {
+			// TODO Auto-generated method stub
+			return new ItemStack(ItemManager.magicpaper);
+		}
+	};
 	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
