@@ -24,6 +24,11 @@ public class InfuserContainer extends Container {
 				infuser.markDirty();
 			};
 		});
+		addSlotToContainer(new SlotItemHandler(inventory, 1,100,35){
+			public void onSlotChanged() {
+				infuser.markDirty();
+			};
+		});
 		
 		for(int i =0; i< 3; i++) {
 			for(int j = 0; j < 9; j++) {
@@ -39,6 +44,7 @@ public class InfuserContainer extends Container {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
 	}
+	
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;

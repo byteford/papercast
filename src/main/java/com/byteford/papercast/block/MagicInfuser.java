@@ -81,26 +81,9 @@ public class MagicInfuser extends BlockContainer{
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(!worldIn.isRemote) {
-			InfuserTileEntity tile = (InfuserTileEntity) worldIn.getTileEntity(pos);
-			IItemHandler itemhandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
-			if(!playerIn.isSneaking()) {
-				if(playerIn.getHeldItem(hand).isEmpty()) {
-					playerIn.setHeldItem(hand, itemhandler.extractItem(0,64, false));
-				}else {
-					playerIn.setHeldItem(hand,itemhandler.insertItem(0, playerIn.getHeldItem(hand), false));
-				}
-				tile.markDirty();
-				
-			}else {
-				playerIn.openGui(paperCast.instance, ModGUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-//				ItemStack stack = itemhandler.getStackInSlot(0);
-//				if(!stack.isEmpty()) {
-//					paperCast.LOGGER.info(stack.getCount() + "x " + stack.getUnlocalizedName());
-//				}else {
-//					paperCast.LOGGER.info("empty");
-//				}
+			playerIn.openGui(paperCast.instance, ModGUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+
 			}
-		}
 		
 		return true;
 	}
