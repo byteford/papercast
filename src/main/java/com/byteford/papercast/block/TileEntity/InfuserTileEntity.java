@@ -21,7 +21,9 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	
 	
 	private ItemStackHandler inventory = new ItemStackHandler(2);
-
+	public boolean isPowered = false;
+	private boolean hasBeenPowered = false;
+	
 	private List<Item> assepts = new ArrayList<Item>();
 	public InfuserTileEntity() {
 		assepts.add(Item.getByNameOrId("minecraft:paper"));
@@ -88,12 +90,19 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	@Override
 	public void update() {
 		if(!this.world.isRemote) {
-		ItemStack stack = getStackInSlot(0);
-		if(stack.getItem() == assepts.get(0)) {
-			inventory.extractItem(0, 1, false);
-			inventory.insertItem(1, new ItemStack(ItemManager.magicpaper), false);
-		}else {
-		}
+			if(isPowered) {
+				if(!hasBeenPowered) {
+					hasBeenPowered = true;
+					ItemStack stack = getStackInSlot(0);
+					if(stack.getItem() == assepts.get(0)) {
+							inventory.extractItem(0, 1, false);	
+					}else {
+					}
+				}
+			}else if (hasBeenPowered) {
+				hasBeenPowered = false;
+				inventory.insertItem(1, new ItemStack(ItemManager.magicpaper), false);
+			}
 		}
 	}
 	

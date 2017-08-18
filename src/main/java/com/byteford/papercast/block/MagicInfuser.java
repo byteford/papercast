@@ -51,11 +51,18 @@ public class MagicInfuser extends BlockContainer{
 	public void observedNeighborChange(IBlockState observerState, World world, BlockPos observerPos, Block changedBlock,
 			BlockPos changedBlockPos) {
 		// TODO Auto-generated method stub
+		if(!world.isRemote)
 		if(world.isBlockIndirectlyGettingPowered(observerPos)>0){
+			if((InfuserTileEntity)world.getTileEntity(observerPos) != null) {
+				((InfuserTileEntity)world.getTileEntity(observerPos)).isPowered = true;
+			}
 			if(!powered) {
 				powered = true;
 			}
 		}else {
+			if((InfuserTileEntity)world.getTileEntity(observerPos) != null) {
+				((InfuserTileEntity)world.getTileEntity(observerPos)).isPowered = false;
+			}
 			powered = false;			
 		}
 		
