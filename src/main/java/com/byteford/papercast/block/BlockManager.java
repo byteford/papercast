@@ -1,11 +1,15 @@
 package com.byteford.papercast.block;
 
+import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHopper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,5 +28,9 @@ public class BlockManager {
 	}
 	public static void regiserBlocks(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(new MagicInfuser());
+		
+	}
+	public static void initialize(FMLInitializationEvent event) {
+		GameRegistry.registerTileEntity(InfuserTileEntity.class, "papercast:magicinfuser");
 	}
 }

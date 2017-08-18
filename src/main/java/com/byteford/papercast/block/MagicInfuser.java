@@ -2,9 +2,12 @@ package com.byteford.papercast.block;
 
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
+
 import org.apache.logging.log4j.Level;
 
 import com.byteford.papercast.paperCast;
+import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -14,20 +17,25 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockRedstoneRepeater;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
-public class MagicInfuser extends Block implements IItemHandler{
+public class MagicInfuser extends BlockContainer{
 	boolean powered = false;
 	public MagicInfuser() {
 		super(Material.ROCK);
-		setRegistryName(paperCast.MODID,"magicinfuser");
+		setRegistryName("magicinfuser");
 		setUnlocalizedName("magicinfuser");
 		setCreativeTab(paperCast.tabPapercast);
 		
@@ -57,29 +65,53 @@ public class MagicInfuser extends Block implements IItemHandler{
 		
 		super.observedNeighborChange(observerState, world, observerPos, changedBlock, changedBlockPos);
 	}
+
 	@Override
-	public int getSlots() {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		// TODO Auto-generated method stub
-		return 0;
+		return new InfuserTileEntity();
 	}
 	@Override
-	public ItemStack getStackInSlot(int slot) {
+	public EnumBlockRenderType getRenderType(IBlockState state) {
 		// TODO Auto-generated method stub
-		return null;
+		return EnumBlockRenderType.MODEL;
 	}
 	@Override
-	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if(!worldIn.isRemote) {
+			InfuserTileEntity tile = (InfuserTileEntity) worldIn.getTileEntity(pos);
+			IItemHandler itemhandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
+			if(!playerIn.isSneaking()) {
+				if(playerIn.getHeldItem(hand).isEmpty()) {
+					playerIn.setHeldItem(hand, itemhandler.extractItem(0,64, false));
+				}else {
+					playerIn.setHeldItem(hand,itemhandler.insertItem(0, playerIn.getHeldItem(hand), false));
+				}
+				tile.markDirty();
+				
+			}else {
+				ItemStack stack = itemhandler.getStackInSlot(0);
+				if(!stack.isEmpty()) {
+					paperCast.LOGGER.info(stack.getCount() + "x " + stack.getUnlocalizedName());
+				}else {
+					paperCast.LOGGER.info("empty");
+				}
+			}
+		}
+		
+		return true;
 	}
 	@Override
-	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		// TODO Auto-generated method stub
-		return null;
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		InfuserTileEntity tile = (InfuserTileEntity) worldIn.getTileEntity(pos);
+		IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+		ItemStack stack = itemHandler.getStackInSlot(0);
+		if(!stack.isEmpty()) {
+			EntityItem item = new EntityItem(worldIn,pos.getX(),pos.getY(),pos.getZ(), stack);
+			worldIn.spawnEntity(item);
+		}
+		super.breakBlock(worldIn, pos, state);
 	}
-	@Override
-	public int getSlotLimit(int slot) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 }
