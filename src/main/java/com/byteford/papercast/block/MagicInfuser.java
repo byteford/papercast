@@ -7,6 +7,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
 import org.apache.logging.log4j.Level;
 
 import com.byteford.papercast.paperCast;
+import com.byteford.papercast.GUI.ModGUIHandler;
 import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
 
 import net.minecraft.block.Block;
@@ -91,12 +92,13 @@ public class MagicInfuser extends BlockContainer{
 				tile.markDirty();
 				
 			}else {
-				ItemStack stack = itemhandler.getStackInSlot(0);
-				if(!stack.isEmpty()) {
-					paperCast.LOGGER.info(stack.getCount() + "x " + stack.getUnlocalizedName());
-				}else {
-					paperCast.LOGGER.info("empty");
-				}
+				playerIn.openGui(paperCast.instance, ModGUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+//				ItemStack stack = itemhandler.getStackInSlot(0);
+//				if(!stack.isEmpty()) {
+//					paperCast.LOGGER.info(stack.getCount() + "x " + stack.getUnlocalizedName());
+//				}else {
+//					paperCast.LOGGER.info("empty");
+//				}
 			}
 		}
 		

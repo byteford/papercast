@@ -3,6 +3,7 @@ package com.byteford.papercast;
 
 import org.apache.logging.log4j.Logger;
 
+import com.byteford.papercast.GUI.ModGUIHandler;
 import com.byteford.papercast.items.ItemManager;
 import com.byteford.papercast.proxy.CommonProxy;
 
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @Mod(
 	modid = paperCast.MODID,
@@ -53,6 +55,7 @@ public class paperCast {
 	{
 		LOGGER = event.getModLog();
 		proxy.preInit(event);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGUIHandler());
 	}
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
