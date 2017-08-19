@@ -47,6 +47,7 @@ public class MagicPaper extends Item {
 		// TODO Auto-generated method stub
 		return EnumAction.BOW;
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		 ItemStack itemstack = playerIn.getHeldItem(handIn);
