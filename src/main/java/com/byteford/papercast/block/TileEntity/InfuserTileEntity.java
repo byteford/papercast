@@ -24,9 +24,11 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	public boolean isPowered = false;
 	private boolean hasBeenPowered = false;
 	
-	private List<Item> assepts = new ArrayList<Item>();
+	private List<Item> accepts = new ArrayList<Item>();
+	
 	public InfuserTileEntity() {
-		assepts.add(Item.getByNameOrId("minecraft:paper"));
+		accepts.add(Item.getByNameOrId("minecraft:paper"));
+		
 	}
 	
 	@Override
@@ -66,7 +68,7 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 		if(slot==1)
 			return stack;
 		// TODO Auto-generated method stub
-		if(stack.getItem() == assepts.get(0))
+		if(stack.getItem() == accepts.get(0))
 			return inventory.insertItem(slot, stack, simulate);
 		
 		return stack;
@@ -92,9 +94,9 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 		if(!this.world.isRemote) {
 			if(isPowered) {
 				if(!hasBeenPowered) {
-					hasBeenPowered = true;
 					ItemStack stack = getStackInSlot(0);
-					if(stack.getItem() == assepts.get(0)) {
+					if(stack.getItem() == accepts.get(0)) {
+						hasBeenPowered = true;
 							inventory.extractItem(0, 1, false);	
 					}else {
 					}
@@ -103,6 +105,8 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 				hasBeenPowered = false;
 				inventory.insertItem(1, new ItemStack(ItemManager.magicpaper), false);
 			}
+			
+			
 		}
 	}
 	
