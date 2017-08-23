@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "papercast:writingdesk"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

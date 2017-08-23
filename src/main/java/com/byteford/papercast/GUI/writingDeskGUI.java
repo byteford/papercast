@@ -1,8 +1,13 @@
 package com.byteford.papercast.GUI;
 
+import java.awt.Color;
+import java.io.IOException;
+
 import com.byteford.papercast.paperCast;
+import com.byteford.papercast.GUI.Buttons.colouredButton;
 import com.byteford.papercast.block.BlockManager;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -14,19 +19,59 @@ public class writingDeskGUI extends GuiContainer {
 
 	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(paperCast.MODID, "textures/gui/infuser.png");
-
+	int top, left;
+	
+	Color colourSelected;
+	
 	public writingDeskGUI(Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
 		this.playerInv = playerInv;
-		// TODO Auto-generated constructor stub
+		
+	}
+	@Override
+	public void initGui() {
+		super.initGui();
+		left = (width - xSize)/2;
+		top = (height - ySize)/2;
+		
+		this.addButton(new colouredButton(1, left + (xSize/2), top + 25,10,10));
+		this.addButton(new colouredButton(2, left + (xSize/2) + 10, top + 25,10,10));
+		this.addButton(new colouredButton(3, left + (xSize/2) +20, top + 25,10,10));
+		this.addButton(new colouredButton(4, left + (xSize/2), top + 35,10,10));
+		this.addButton(new colouredButton(5, left + (xSize/2) +10, top + 35,10,10));
+		
+		this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10));
+		this.addButton(new colouredButton(7, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.BLUE));
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton button) throws IOException {
+		switch (button.id) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+			button.displayString = "clicked";
+			if(colourSelected != null)
+			((colouredButton)button).setColour(colourSelected);
+			break;
+		case 6:
+		case 7:
+			colourSelected = ((colouredButton)button).GetColour();
+			break;
+		default:
+			break;
+		}
+		super.actionPerformed(button);
 	}
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1, 1, 1,1);
 		mc.getTextureManager().bindTexture(BG_TEXTURE);
-		int x = (width - xSize)/2;
-		int y = (height - ySize)/2;
-		drawTexturedModalRect(x, y,0,0,xSize,ySize);
+		left = (width - xSize)/2;
+		top = (height - ySize)/2;
+		drawTexturedModalRect(left, top,0,0,xSize,ySize);
 		
 	}
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {

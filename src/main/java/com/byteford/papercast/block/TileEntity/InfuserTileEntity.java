@@ -82,7 +82,6 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	}
 	@Override
 	public int getSlotLimit(int slot) {
-		// TODO Auto-generated method stub
 		return inventory.getSlotLimit(slot);
 	}
 	@Override
