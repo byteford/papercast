@@ -6,6 +6,8 @@ import java.io.IOException;
 import com.byteford.papercast.paperCast;
 import com.byteford.papercast.GUI.Buttons.colouredButton;
 import com.byteford.papercast.block.BlockManager;
+import com.byteford.papercast.block.TileEntity.WritingDeskTileEntity;
+import com.byteford.papercast.block.container.WritingDeskContainer;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -14,10 +16,13 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public class writingDeskGUI extends GuiContainer {
 
 	private InventoryPlayer playerInv;
+	WritingDeskContainer contioner;
+	
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(paperCast.MODID, "textures/gui/infuser.png");
 	int top, left;
 	
@@ -26,6 +31,7 @@ public class writingDeskGUI extends GuiContainer {
 	public writingDeskGUI(Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
 		this.playerInv = playerInv;
+		contioner = (WritingDeskContainer)inventorySlotsIn;
 		
 	}
 	@Override
@@ -34,19 +40,32 @@ public class writingDeskGUI extends GuiContainer {
 		left = (width - xSize)/2;
 		top = (height - ySize)/2;
 		
+		this.addButton(new GuiButton(0, left + xSize/2 -5, top + 60,20,20, "GO"));
+		
 		this.addButton(new colouredButton(1, left + (xSize/2), top + 25,10,10));
 		this.addButton(new colouredButton(2, left + (xSize/2) + 10, top + 25,10,10));
 		this.addButton(new colouredButton(3, left + (xSize/2) +20, top + 25,10,10));
 		this.addButton(new colouredButton(4, left + (xSize/2), top + 35,10,10));
 		this.addButton(new colouredButton(5, left + (xSize/2) +10, top + 35,10,10));
 		
-		this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10));
+		this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10).setColour(Color.BLACK));
 		this.addButton(new colouredButton(7, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.BLUE));
+		this.addButton(new colouredButton(8, left + (xSize/2) + 40, top + 35, 10, 10).setColour(Color.RED));
+//		this.addButton(new colouredButton(9, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.WHITE));
+//		this.addButton(new colouredButton(10, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.blue)); //light blue
+//		this.addButton(new colouredButton(11, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.GREEN));
+//		this.addButton(new colouredButton(12, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.green)); //dark green
+//		this.addButton(new colouredButton(13, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.YELLOW));
+//		this.addButton(new colouredButton(14, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.)); //brown
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 		switch (button.id) {
+		case 0:
+			((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).makePaper();
+			//contioner.writingDesk.makePaper();
+			break;
 		case 1:
 		case 2:
 		case 3:

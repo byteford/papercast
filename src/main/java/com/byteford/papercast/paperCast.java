@@ -4,7 +4,10 @@ package com.byteford.papercast;
 import org.apache.logging.log4j.Logger;
 
 import com.byteford.papercast.GUI.ModGUIHandler;
+import com.byteford.papercast.GUI.writingDeskGUI;
 import com.byteford.papercast.items.ItemManager;
+import com.byteford.papercast.network.writingPacket;
+import com.byteford.papercast.network.writtingPacketHandler;
 import com.byteford.papercast.proxy.CommonProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,6 +18,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.handshake.NetworkDispatcher;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(
 	modid = paperCast.MODID,
@@ -28,6 +34,8 @@ public class paperCast {
 	public static final String MODID = "papercast";
 	public static final String MODNAME = "papercast";
 	public static final String VERSION = "1.12-0.0.0.1";
+	
+	public static SimpleNetworkWrapper netWrapper;
 	
 	@Mod.Instance
 	public static paperCast instance;
@@ -56,6 +64,8 @@ public class paperCast {
 		LOGGER = event.getModLog();
 		proxy.preInit(event);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGUIHandler());
+		netWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODNAME);
+		netWrapper.registerMessage(writtingPacketHandler.class, writingPacket.class, 0, Side.SERVER);
 	}
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)

@@ -14,7 +14,11 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class WritingDeskContainer extends Container {
 
+	public WritingDeskTileEntity writingDesk;
+	
+	
 	public WritingDeskContainer(InventoryPlayer playerInv, final WritingDeskTileEntity WritingDesk) {
+		writingDesk = WritingDesk;
 		IItemHandler inventory = WritingDesk.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
 		addSlotToContainer(new SlotItemHandler(inventory, 0, 20, 20){
 			@Override
