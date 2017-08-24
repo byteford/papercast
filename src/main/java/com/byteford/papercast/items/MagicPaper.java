@@ -38,9 +38,12 @@ public class MagicPaper extends Item {
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		if(stack.hasTagCompound())
-			if(stack.getTagCompound().hasKey("type"))
-					return paperType.values()[stack.getTagCompound().getInteger("type")].toString() + ": " + Potion.getPotionById(stack.getTagCompound().getInteger("effect")).getName();
-		return super.getItemStackDisplayName(stack);
+			if(stack.getTagCompound().hasKey("effect")) {
+				String  temp1 = paperType.values()[Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(0))].toString();
+				int temp2 = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(1));
+					return temp1 + ": " + Potion.getPotionById(temp2).getName();
+				}
+			return super.getItemStackDisplayName(stack);
 	}
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
@@ -55,7 +58,7 @@ public class MagicPaper extends Item {
 	        ItemStack stack = playerIn.getHeldItem(handIn);
 	        if(!stack.hasTagCompound())
 	        	return new ActionResult(EnumActionResult.FAIL, itemstack);
-	        if(!stack.getTagCompound().hasKey("type"))
+	        if(!stack.getTagCompound().hasKey("effect"))
 	        	return new ActionResult(EnumActionResult.FAIL, itemstack);
 
 	        if (!playerIn.capabilities.isCreativeMode && !flag)
@@ -69,20 +72,17 @@ public class MagicPaper extends Item {
 	        }
 	}
 	public Boolean BuffPaper(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-		if(stack.getTagCompound().hasKey("effect") && stack.getTagCompound().hasKey("duration") && stack.getTagCompound().hasKey("amplifier")){
-			int effect = stack.getTagCompound().getInteger("effect");
-			int duration = stack.getTagCompound().getInteger("duration");
-			int amplifier = stack.getTagCompound().getInteger("amplifier");			
+			int effect = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(1));
+			int duration = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(2));
+			int amplifier = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(3));			
 			entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(effect),duration,amplifier));
 			return true;
-		}		
-		return false;
 	}
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if(stack.hasTagCompound()) {
-			paperType type = paperType.values()[stack.getTagCompound().getInteger("type")];
+			paperType type = paperType.values()[stack.getTagCompound().getString("effect").charAt(0)];
 			Boolean success = false;
 			switch(type) {
 			case buff:
