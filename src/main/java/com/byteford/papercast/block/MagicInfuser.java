@@ -1,23 +1,19 @@
 package com.byteford.papercast.block;
 
-import java.util.Random;
-
-import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
-
-import org.apache.logging.log4j.Level;
-
 import com.byteford.papercast.paperCast;
-import com.byteford.papercast.GUI.ModGUIHandler;
 import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.BlockHopper;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockPistonBase;
-import net.minecraft.block.BlockRedstoneRepeater;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,21 +21,40 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 public class MagicInfuser extends BlockContainer{
 	boolean powered = false;
+	public static final IProperty<Boolean> VARIANT = PropertyBool.create("powered");
 	public MagicInfuser() {
 		super(Material.ROCK);
 		setRegistryName("magicinfuser");
 		setUnlocalizedName("magicinfuser");
 		setCreativeTab(paperCast.tabPapercast);
-		
+		//this.blockState.getProperties().add(VARIANT);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, Boolean.valueOf(powered)));
+		//BlockFence
+	}
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+        return state.withProperty(VARIANT, powered);
+    }
+	protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, VARIANT);
+    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
 	}
 	@Override
 	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
@@ -58,12 +73,14 @@ public class MagicInfuser extends BlockContainer{
 			}
 			if(!powered) {
 				powered = true;
+				world.setBlockState(observerPos, observerState.withProperty(VARIANT,  Boolean.valueOf(powered)), 2);
 			}
 		}else {
 			if((InfuserTileEntity)world.getTileEntity(observerPos) != null) {
 				((InfuserTileEntity)world.getTileEntity(observerPos)).isPowered = false;
 			}
-			powered = false;			
+			powered = false;
+			world.setBlockState(observerPos, observerState.withProperty(VARIANT, Boolean.valueOf(powered)), 2);
 		}
 		
 		if(powered) {

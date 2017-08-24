@@ -1,0 +1,11 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"down": "papercast:blocks/magic_infuser_bottom_inactive",
+		"up":	"papercast:blocks/magic_infuser_top_inactive",
+		"north": "papercast:blocks/magic_infuser_side",
+        "east": "papercast:blocks/magic_infuser_side",
+        "south": "papercast:blocks/magic_infuser_side",
+        "west": "papercast:blocks/magic_infuser_side"
+	}
+}
