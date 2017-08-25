@@ -19,7 +19,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 
-public class MagicPaper extends Item {
+public class MagicPaper extends infuserItem {
 	public MagicPaper() {
 		super();
 		setRegistryName("magicpaper");
