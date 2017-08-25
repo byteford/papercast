@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.byteford.papercast.items.ItemManager;
+import com.byteford.papercast.items.infuserItem;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,13 +26,17 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	public boolean isPowered = false;
 	private boolean hasBeenPowered = false;
 	
-	private List<Item> accepts = new ArrayList<Item>();
-	
+	private static List<Item> accepts = new ArrayList<Item>();
+	private static List<infuserItem> makesList = new ArrayList<infuserItem>();
+	public int makeing;
 	public InfuserTileEntity() {
-		accepts.add(Item.getByNameOrId("minecraft:paper"));
+		//accepts.add(Item.getByNameOrId("minecraft:paper"));
 		
 	}
-	
+	public static void addItem(infuserItem makes) {
+		accepts.add(makes.infusesFrom);
+		makesList.add(makes);
+	}
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -68,7 +74,8 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 		if(slot==1)
 			return stack;
 		// TODO Auto-generated method stub
-		if(stack.getItem() == accepts.get(0))
+		if(accepts.contains(stack.getItem()))
+		//if(stack.getItem() == accepts.get(0))
 			return inventory.insertItem(slot, stack, simulate);
 		
 		return stack;
@@ -94,21 +101,22 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 			if(isPowered) {
 				if(!hasBeenPowered) {
 					ItemStack stack = getStackInSlot(0);
-					if(stack.getItem() == accepts.get(0)) {
+					//if(stack.getItem() == accepts.get(0)) {
+					if(accepts.contains(stack.getItem())) {
+						makeing = accepts.indexOf(stack.getItem());
 						hasBeenPowered = true;
-							inventory.extractItem(0, 1, false);	
+						inventory.extractItem(0, 1, false);	
 					}else {
+						
 					}
 				}
 			}else if (hasBeenPowered) {
 				hasBeenPowered = false;
-				inventory.insertItem(1, new ItemStack(ItemManager.magicpaper), false);
+				inventory.insertItem(1, new ItemStack(makesList.get(makeing)), false);
 			}
 			
 			
 		}
 	}
-	
-	
-
 }
+

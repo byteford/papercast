@@ -25,6 +25,7 @@ public class MagicPaper extends infuserItem {
 		setRegistryName("magicpaper");
 		setUnlocalizedName("magicpaper");
 		setCreativeTab(paperCast.tabPapercast);
+		infusesFrom = Item.getByNameOrId("minecraft:paper");
 	}
 	public int getMaxItemUseDuration(ItemStack stack) {
 		// TODO Auto-generated method stub

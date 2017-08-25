@@ -21,7 +21,9 @@ public class CommonProxy {
 		
 	}
 	public void init(FMLInitializationEvent event) {
+		ItemManager.initialize(event);
 		BlockManager.initialize(event);
+		
 	}
 	public void postInit(FMLPostInitializationEvent event) {
 		

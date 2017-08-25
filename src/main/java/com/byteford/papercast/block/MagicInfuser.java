@@ -1,6 +1,7 @@
 package com.byteford.papercast.block;
 
 import com.byteford.papercast.paperCast;
+import com.byteford.papercast.GUI.ModGUIHandler;
 import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
 
 import net.minecraft.block.Block;
@@ -40,9 +41,9 @@ public class MagicInfuser extends BlockContainer{
 		setRegistryName("magicinfuser");
 		setUnlocalizedName("magicinfuser");
 		setCreativeTab(paperCast.tabPapercast);
-		//this.blockState.getProperties().add(VARIANT);
+
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, Boolean.valueOf(powered)));
-		//BlockFence
+
 	}
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
@@ -73,14 +74,14 @@ public class MagicInfuser extends BlockContainer{
 			}
 			if(!powered) {
 				powered = true;
-				world.setBlockState(observerPos, observerState.withProperty(VARIANT,  Boolean.valueOf(powered)), 2);
+				//world.setBlockState(observerPos, observerState.withProperty(VARIANT,  Boolean.valueOf(powered)), 2);
 			}
 		}else {
 			if((InfuserTileEntity)world.getTileEntity(observerPos) != null) {
 				((InfuserTileEntity)world.getTileEntity(observerPos)).isPowered = false;
 			}
 			powered = false;
-			world.setBlockState(observerPos, observerState.withProperty(VARIANT, Boolean.valueOf(powered)), 2);
+			//world.setBlockState(observerPos, observerState.withProperty(VARIANT, Boolean.valueOf(powered)), 2);
 		}
 		
 		if(powered) {
@@ -104,9 +105,9 @@ public class MagicInfuser extends BlockContainer{
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//		if(!worldIn.isRemote) {
-//			playerIn.openGui(paperCast.instance, ModGUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-//		}
+		if(!worldIn.isRemote) {
+			playerIn.openGui(paperCast.instance, ModGUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		}
 		
 		return true;
 	}
