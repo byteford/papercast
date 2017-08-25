@@ -20,19 +20,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockManager {
 	public static final MagicInfuser magicinfuser = null;
 	public static final WritingDesk writingdesk = null;
+	public static final AbsorbtionCrystal absorbtioncrystal = null;
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(magicinfuser), 0, new ModelResourceLocation(magicinfuser.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(writingdesk), 0, new ModelResourceLocation(writingdesk.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(absorbtioncrystal), 0, new ModelResourceLocation(absorbtioncrystal.getRegistryName(), "inventory"));
 	}
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(new ItemBlock(magicinfuser).setRegistryName(magicinfuser.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(writingdesk).setRegistryName(writingdesk.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(absorbtioncrystal).setRegistryName(absorbtioncrystal.getRegistryName()));
 		
 	}
 	public static void regiserBlocks(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(new MagicInfuser());
 		event.getRegistry().register(new WritingDesk());
+		event.getRegistry().register(new AbsorbtionCrystal());
 		
 	}
 	public static void initialize(FMLInitializationEvent event) {
