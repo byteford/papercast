@@ -27,6 +27,7 @@ public class writingDeskGUI extends GuiContainer {
 	int top, left;
 	
 	Color colourSelected;
+	int colourNum;
 	
 	public writingDeskGUI(Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
@@ -63,7 +64,11 @@ public class writingDeskGUI extends GuiContainer {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		switch (button.id) {
 		case 0:
-			((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).makePaper("0111");
+			String paperval = "";
+			for(int i = 1; i < 6; i++) {
+				paperval += ((colouredButton)this.buttonList.get(i)).getColIDasChar();
+			}
+			((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).makePaper(paperval);
 			//contioner.writingDesk.makePaper();
 			break;
 		case 1:
@@ -71,13 +76,22 @@ public class writingDeskGUI extends GuiContainer {
 		case 3:
 		case 4:
 		case 5:
-			button.displayString = "clicked";
-			if(colourSelected != null)
+			if(colourSelected == null)
+				break;
 			((colouredButton)button).setColour(colourSelected);
+			((colouredButton)button).setcolID(colourNum);
 			break;
 		case 6:
 		case 7:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+		case 14:
 			colourSelected = ((colouredButton)button).GetColour();
+			colourNum = button.id - 5;
 			break;
 		default:
 			break;

@@ -7,8 +7,8 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 
 public class colouredButton extends GuiButton {
-	Color colour = Color.RED;
-	
+	Color colour = Color.BLACK;
+	int colourId = 1;
 	public colouredButton(int buttonId, int x, int y, int widthIn, int heightIn) {
 		super(buttonId, x, y, widthIn, heightIn, "");
 	}
@@ -19,12 +19,24 @@ public class colouredButton extends GuiButton {
 	public void setColour(int red, int green, int blue) {
 		colour = new Color(red, green, blue);		
 	}
+	
 	public colouredButton setColour(Color col) {
 		colour = col;
 		return this;
 	}
 	public Color GetColour() {
 		return colour;
+	}
+	public void setcolID(int id) {
+		colourId = id;
+	}
+	public int getColID() {
+		return colourId;
+	}
+	public char getColIDasChar() {
+		if(colourId == 0)
+			return ' ';
+		return Integer.toString(colourId).charAt(0);
 	}
 	@Override
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {

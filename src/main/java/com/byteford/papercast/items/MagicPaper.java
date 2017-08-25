@@ -90,9 +90,9 @@ public class MagicPaper extends infuserItem {
 			case buff:
 				success = BuffPaper(stack,worldIn,entityLiving,timeLeft);
 				break;
-			case conjuration:
-				break;
 			case projectile:
+				break;
+			case summon:
 				break;
 			default:
 				break; 
@@ -106,7 +106,8 @@ public class MagicPaper extends infuserItem {
 	
 	
 	public paperType getPaperType(String paperdata) {
-		
+		if(Character.getNumericValue(paperdata.charAt(0)) <0)
+			return paperType.none;
 		return paperType.values()[Character.getNumericValue(paperdata.charAt(0))];
 	}
 	public int effect(String paperdata) {
