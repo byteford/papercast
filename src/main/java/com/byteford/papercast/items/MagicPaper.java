@@ -40,7 +40,9 @@ public class MagicPaper extends Item {
 		if(stack.hasTagCompound())
 			if(stack.getTagCompound().hasKey("effect")) {
 				String  temp1 = paperType.values()[Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(0))].toString();
+				
 				int temp2 = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(1));
+				if(temp2 >0)
 					return temp1 + ": " + Potion.getPotionById(temp2).getName();
 				}
 			return super.getItemStackDisplayName(stack);
@@ -82,7 +84,7 @@ public class MagicPaper extends Item {
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if(stack.hasTagCompound()) {
-			paperType type = paperType.values()[stack.getTagCompound().getString("effect").charAt(0)];
+			paperType type = paperType.values()[Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(0))];
 			Boolean success = false;
 			switch(type) {
 			case buff:

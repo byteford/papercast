@@ -63,7 +63,7 @@ public class writingDeskGUI extends GuiContainer {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		switch (button.id) {
 		case 0:
-			((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).makePaper();
+			((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).makePaper("0133");
 			//contioner.writingDesk.makePaper();
 			break;
 		case 1:

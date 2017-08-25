@@ -46,8 +46,8 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)this: super.getCapability(capability, facing);
 	}
-	public void makePaper() {
-		paperCast.netWrapper.sendToServer(new writingPacket("1111",pos.getX() , pos.getY(), pos.getZ()));
+	public void makePaper(String papervalue) {
+		paperCast.netWrapper.sendToServer(new writingPacket(papervalue,pos.getX() , pos.getY(), pos.getZ()));
 		//MakePaperServer();
 		
 	}
