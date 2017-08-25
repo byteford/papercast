@@ -39,11 +39,10 @@ public class MagicPaper extends Item {
 	public String getItemStackDisplayName(ItemStack stack) {
 		if(stack.hasTagCompound())
 			if(stack.getTagCompound().hasKey("effect")) {
-				String  temp1 = paperType.values()[Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(0))].toString();
+				String  temp1 = getPaperType(stack.getTagCompound().getString("effect")).toString();
 				
-				int temp2 = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(1));
-				if(temp2 >0)
-					return temp1 + ": " + Potion.getPotionById(temp2).getName();
+				int temp2 = effect(stack.getTagCompound().getString("effect"));
+				return temp1 + ": " + Potion.getPotionById(temp2).getName();
 				}
 			return super.getItemStackDisplayName(stack);
 	}
@@ -74,9 +73,9 @@ public class MagicPaper extends Item {
 	        }
 	}
 	public Boolean BuffPaper(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-			int effect = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(1));
-			int duration = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(2));
-			int amplifier = Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(3));			
+			int effect = effect(stack.getTagCompound().getString("effect"));
+			int duration = durationTime(stack.getTagCompound().getString("effect"));
+			int amplifier = amplifiyer(stack.getTagCompound().getString("effect"));			
 			entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(effect),duration,amplifier));
 			return true;
 	}
@@ -84,7 +83,7 @@ public class MagicPaper extends Item {
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if(stack.hasTagCompound()) {
-			paperType type = paperType.values()[Character.getNumericValue(stack.getTagCompound().getString("effect").charAt(0))];
+			paperType type = getPaperType(stack.getTagCompound().getString("effect"));
 			Boolean success = false;
 			switch(type) {
 			case buff:
@@ -103,8 +102,31 @@ public class MagicPaper extends Item {
 		
 		super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
 	}
-
 	
 	
+	public paperType getPaperType(String paperdata) {
+		
+		return paperType.values()[Character.getNumericValue(paperdata.charAt(0))];
+	}
+	public int effect(String paperdata) {
+		if(Character.getNumericValue(paperdata.charAt(1)) > 0)
+			return Character.getNumericValue(paperdata.charAt(1));
+		return 1;
+	}
+	public int durationTime(String paperdata) {
+		int temp = Character.getNumericValue(paperdata.charAt(2));
+		switch (temp) {
+		case 0:
+			return 0;
+		case 1:
+			return 20000;
+		default:
+			break;
+		}
+		return 0;
+	}
+	public int amplifiyer(String paperdata) {
+		return Character.getNumericValue(paperdata.charAt(3));
+	}
  
 }

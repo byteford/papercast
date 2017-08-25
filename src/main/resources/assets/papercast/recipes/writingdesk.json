@@ -1,0 +1,24 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern":[
+		"###",
+		"OXO",
+		"O O"
+		],
+	"key":{
+		"#":{
+		"item":"minecraft:iron_ingot"
+		},
+		"X":{
+			"item":"minecraft:glass_bottle"
+		},
+		"O":{
+			"item":"minecraft:planks",
+			"data":0
+		}
+	},
+	"result":{
+		"item":"papercast:writingdesk",
+		"data":0
+	}
+}

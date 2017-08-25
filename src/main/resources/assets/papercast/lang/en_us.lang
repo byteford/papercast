@@ -1,3 +1,9 @@
 item.magicpaper.name=MagicPaper
 
 itemGroup.papercast = PaperCast
+
+tile.writingdesk.name = Writing Desk
+tile.magicinfuser.name = Magic Infuser
+
+block.writingdesk.name = Writing Desk
+block.magicinfuser.name = Magic Infuser
