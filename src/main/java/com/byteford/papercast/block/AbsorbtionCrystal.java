@@ -9,10 +9,11 @@ import net.minecraft.block.material.Material;
 public class AbsorbtionCrystal extends Block {
 
 	public AbsorbtionCrystal() {
-		super(Material.GLASS, MapColor.BLUE);
+		super(Material.GLASS, MapColor.BLACK);
 		setRegistryName("absorbtioncrystal");
 		setUnlocalizedName("absorbtioncrystal");
 		setCreativeTab(paperCast.tabPapercast);
+		
 	}
 	
 
