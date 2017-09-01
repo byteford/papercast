@@ -28,6 +28,7 @@ public class ItemBinder extends Item {
 		// TODO Auto-generated method stub
 		return true ;
 	}
+	 
 	 @Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -38,19 +39,23 @@ public class ItemBinder extends Item {
 				player.getHeldItem(hand).setTagCompound(new NBTTagCompound());
 				bound = false;
 			}
-			if(bound == false) {
-			paperCast.LOGGER.log(Level.INFO,"store: " +  pos);
-			
-			player.getHeldItem(hand).getTagCompound().setFloat("x", pos.getX());
-			player.getHeldItem(hand).getTagCompound().setFloat("y", pos.getY());
-			player.getHeldItem(hand).getTagCompound().setFloat("z", pos.getZ());
-			bound = true;
-			return EnumActionResult.SUCCESS;
-			}else {
-				block.linkBlock(new BlockPos(player.getHeldItem(hand).getTagCompound().getFloat("x"),
-						player.getHeldItem(hand).getTagCompound().getFloat("y"),
-						player.getHeldItem(hand).getTagCompound().getFloat("z")));
-				bound = false;
+				if(block.canlinkFrom()) {
+					paperCast.LOGGER.log(Level.INFO,"store: " +  pos);
+					
+					player.getHeldItem(hand).getTagCompound().setFloat("x", pos.getX());
+					player.getHeldItem(hand).getTagCompound().setFloat("y", pos.getY());
+					player.getHeldItem(hand).getTagCompound().setFloat("z", pos.getZ());
+					bound = true;
+					return EnumActionResult.SUCCESS;
+				}
+			if(bound) {
+				if(block.canlinkTo()) {
+					paperCast.LOGGER.log(Level.INFO,"link: " +  pos);
+					block.linkBlock(worldIn,new BlockPos(player.getHeldItem(hand).getTagCompound().getFloat("x"),
+							player.getHeldItem(hand).getTagCompound().getFloat("y"),
+							player.getHeldItem(hand).getTagCompound().getFloat("z")), pos);
+					bound = false;
+				}
 			}
 		}
 		return EnumActionResult.FAIL;

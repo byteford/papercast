@@ -16,7 +16,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class WritingDesk extends BlockContainer {
+public class WritingDesk extends BlockContainer implements ILinkable {
 
 	public WritingDesk() {
 		super(Material.WOOD);
@@ -44,6 +44,26 @@ public class WritingDesk extends BlockContainer {
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		// TODO Auto-generated method stub
 		return new WritingDeskTileEntity();
+	}
+
+
+	@Override
+	public boolean linkBlock(World worldIn,BlockPos Frompos, BlockPos topos) {
+		((WritingDeskTileEntity)worldIn.getTileEntity(topos)).linkBlock(worldIn, Frompos, topos);
+		return true;
+		
+	}
+	@Override
+	public boolean canlinkFrom() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean canlinkTo() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }

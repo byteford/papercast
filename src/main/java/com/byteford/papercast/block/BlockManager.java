@@ -1,6 +1,7 @@
 package com.byteford.papercast.block;
 
 import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
+import com.byteford.papercast.block.TileEntity.ManaContainerTileEntity;
 import com.byteford.papercast.block.TileEntity.WritingDeskTileEntity;
 
 import net.minecraft.block.Block;
@@ -46,5 +47,6 @@ public class BlockManager {
 	public static void initialize(FMLInitializationEvent event) {
 		GameRegistry.registerTileEntity(InfuserTileEntity.class, "papercast:magicinfuser");
 		GameRegistry.registerTileEntity(WritingDeskTileEntity.class, "papercast:writingdesk");
+		GameRegistry.registerTileEntity(ManaContainerTileEntity.class, "papercast:manacontainer");
 	}
 }
