@@ -64,7 +64,7 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	private BlockPos[] getBlockPosFromIntary(int[] intary) {
 		BlockPos[] temp = new BlockPos[numberOfContainers];
 		for(int i = 0; i< intary.length; i+= 3) {
-			temp[i/3].add(i, i+1, i+2);
+			temp[i/3] = new BlockPos(intary[i], intary[i+1], intary[i+2]);
 		}
 		return temp;
 	}
@@ -126,10 +126,14 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	
 	public boolean linkBlock(World worldIn,BlockPos Frompos, BlockPos topos) {
 		if(linkedContainers[0]!= null) {
-			paperCast.LOGGER.log(Level.INFO,"alreadyLinked");
+			paperCast.LOGGER.log(Level.INFO,"alreadyLinked to: " + linkedContainers[0]);
+			linkedContainers[0]= Frompos;
+			this.markDirty();
+			paperCast.LOGGER.log(Level.INFO,"rebound to: " + Frompos);
 			return false;
 		}else {
 			linkedContainers[0]= Frompos;
+			this.markDirty();
 			paperCast.LOGGER.log(Level.INFO,"Linked");
 			return true;
 		}
