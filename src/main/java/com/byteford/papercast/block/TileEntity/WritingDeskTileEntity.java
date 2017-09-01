@@ -46,7 +46,9 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		for(int i = 0; i< numberOfContainers ; i++) {
 			if(linkedContainers[i] != null) {
 				int[] temp = getIntsFromBlockPos(linkedContainers[i]);
-				ArrayUtils.addAll(pos, temp[0],temp[1],temp[2]);
+				pos[i*3] = temp[0];
+				pos[i*3 + 1] = temp[1];
+				pos[i*3 + 2] = temp[2];
 			}
 		}
 		NBTTagIntArray list = new NBTTagIntArray(pos);
