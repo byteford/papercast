@@ -6,6 +6,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.Level;
 
 import com.byteford.papercast.paperCast;
+import com.byteford.papercast.block.BlockManaContainer;
 import com.byteford.papercast.items.ItemManager;
 import com.byteford.papercast.items.MagicPaper;
 import com.byteford.papercast.network.writingPacket;
@@ -34,6 +35,8 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	private ItemStackHandler inventory = new ItemStackHandler(3);
 
 	private BlockPos[] linkedContainers = new BlockPos[numberOfContainers];
+	
+	private ManaContainerTileEntity[] containers = new ManaContainerTileEntity[numberOfContainers];
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -61,6 +64,7 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	public void readFromNBT(NBTTagCompound compound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
 		linkedContainers = getBlockPosFromIntary(compound.getIntArray("linked"));
+		containers = getContainersFromPoss(linkedContainers);
 		super.readFromNBT(compound);
 	}
 	private BlockPos[] getBlockPosFromIntary(int[] intary) {
@@ -70,7 +74,23 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		}
 		return temp;
 	}
-
+	private ManaContainerTileEntity[] getContainersFromPoss(BlockPos[] poss) {
+		ManaContainerTileEntity[] temp = new ManaContainerTileEntity[numberOfContainers];
+		for(int i = 0; i < numberOfContainers; i++) {
+			temp[i] = (world.getTileEntity(poss[i]) instanceof ManaContainerTileEntity ? (ManaContainerTileEntity) world.getTileEntity(poss[i]) : null);
+			
+		}		
+		
+		return temp;		
+	}
+	public boolean hasContainerAtId(int id) {
+		return containers[id] != null;
+	}
+	public ManaContainerTileEntity getContFromID(int id) {
+		//if(containers[id] != null)
+		return containers[id];
+		//return null;
+	}
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
@@ -130,11 +150,13 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		if(linkedContainers[0]!= null) {
 			paperCast.LOGGER.log(Level.INFO,"alreadyLinked to: " + linkedContainers[0]);
 			linkedContainers[0]= Frompos;
+			containers[0] = (ManaContainerTileEntity) worldIn.getTileEntity(Frompos);
 			this.markDirty();
 			paperCast.LOGGER.log(Level.INFO,"rebound to: " + Frompos);
 			return false;
 		}else {
 			linkedContainers[0]= Frompos;
+			containers[0] = (ManaContainerTileEntity) worldIn.getTileEntity(Frompos);
 			this.markDirty();
 			paperCast.LOGGER.log(Level.INFO,"Linked");
 			return true;
