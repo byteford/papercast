@@ -36,14 +36,17 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 
 	private BlockPos[] linkedContainers = new BlockPos[numberOfContainers];
 	
+	
+	
 	private ManaContainerTileEntity[] containers = new ManaContainerTileEntity[numberOfContainers];
+	
+	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
 		compound.setTag("linked", getintArray());
 		return super.writeToNBT(compound);
 	}
-	
 	private NBTTagIntArray getintArray() {
 		int[] pos = new int[numberOfContainers *3];
 		for(int i = 0; i< numberOfContainers ; i++) {
@@ -63,9 +66,11 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+		//deserializeNBT(compound);
 		linkedContainers = getBlockPosFromIntary(compound.getIntArray("linked"));
-		containers = getContainersFromPoss(linkedContainers);
+		//containers = getContainersFromPoss(linkedContainers);
 		super.readFromNBT(compound);
+		
 	}
 	private BlockPos[] getBlockPosFromIntary(int[] intary) {
 		BlockPos[] temp = new BlockPos[numberOfContainers];
@@ -77,18 +82,26 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	private ManaContainerTileEntity[] getContainersFromPoss(BlockPos[] poss) {
 		ManaContainerTileEntity[] temp = new ManaContainerTileEntity[numberOfContainers];
 		for(int i = 0; i < numberOfContainers; i++) {
-			temp[i] = (world.getTileEntity(poss[i]) instanceof ManaContainerTileEntity ? (ManaContainerTileEntity) world.getTileEntity(poss[i]) : null);
+			if(this.getWorld().getTileEntity(poss[i]) != null)
+			if(this.getWorld().getTileEntity(poss[i]) instanceof ManaContainerTileEntity)
+				temp[i] = (ManaContainerTileEntity) world.getTileEntity(poss[i]);
+			else
+				temp[i] =null;
 			
 		}		
 		
 		return temp;		
 	}
 	public boolean hasContainerAtId(int id) {
-		return containers[id] != null;
+		if(linkedContainers[id] == null) {
+			paperCast.LOGGER.info(Integer.toString(id) + " is null");
+			return false;
+		}
+		return world.getTileEntity(linkedContainers[id]) != null;
 	}
 	public ManaContainerTileEntity getContFromID(int id) {
 		//if(containers[id] != null)
-		return containers[id];
+		return (ManaContainerTileEntity) world.getTileEntity(linkedContainers[id]);
 		//return null;
 	}
 	@Override

@@ -49,7 +49,7 @@ public class writingDeskGUI extends GuiContainer {
 		this.addButton(new colouredButton(4, left + (xSize/2), top + 35,10,10));
 		this.addButton(new colouredButton(5, left + (xSize/2) +10, top + 35,10,10));
 		
-		if(contioner.writingDesk.hasContainerAtId(0))
+		
 		this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10).setColour(Color.BLACK));
 		this.addButton(new colouredButton(7, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.BLUE));
 		this.addButton(new colouredButton(8, left + (xSize/2) + 40, top + 35, 10, 10).setColour(Color.RED));
@@ -91,8 +91,10 @@ public class writingDeskGUI extends GuiContainer {
 		case 12:
 		case 13:
 		case 14:
+			if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(0)) {
 			colourSelected = ((colouredButton)button).GetColour();
 			colourNum = button.id - 5;
+			}
 			break;
 		default:
 			break;
