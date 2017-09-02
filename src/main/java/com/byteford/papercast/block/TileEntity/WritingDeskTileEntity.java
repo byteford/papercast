@@ -37,10 +37,6 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	private BlockPos[] linkedContainers = new BlockPos[numberOfContainers];
 	
 	
-	
-	private ManaContainerTileEntity[] containers = new ManaContainerTileEntity[numberOfContainers];
-	
-	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -78,19 +74,6 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 			temp[i/3] = new BlockPos(intary[i], intary[i+1], intary[i+2]);
 		}
 		return temp;
-	}
-	private ManaContainerTileEntity[] getContainersFromPoss(BlockPos[] poss) {
-		ManaContainerTileEntity[] temp = new ManaContainerTileEntity[numberOfContainers];
-		for(int i = 0; i < numberOfContainers; i++) {
-			if(this.getWorld().getTileEntity(poss[i]) != null)
-			if(this.getWorld().getTileEntity(poss[i]) instanceof ManaContainerTileEntity)
-				temp[i] = (ManaContainerTileEntity) world.getTileEntity(poss[i]);
-			else
-				temp[i] =null;
-			
-		}		
-		
-		return temp;		
 	}
 	public boolean hasContainerAtId(int id) {
 		if(linkedContainers[id] == null) {
@@ -163,13 +146,11 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		if(linkedContainers[0]!= null) {
 			paperCast.LOGGER.log(Level.INFO,"alreadyLinked to: " + linkedContainers[0]);
 			linkedContainers[0]= Frompos;
-			containers[0] = (ManaContainerTileEntity) worldIn.getTileEntity(Frompos);
 			this.markDirty();
 			paperCast.LOGGER.log(Level.INFO,"rebound to: " + Frompos);
 			return false;
 		}else {
 			linkedContainers[0]= Frompos;
-			containers[0] = (ManaContainerTileEntity) worldIn.getTileEntity(Frompos);
 			this.markDirty();
 			paperCast.LOGGER.log(Level.INFO,"Linked");
 			return true;
