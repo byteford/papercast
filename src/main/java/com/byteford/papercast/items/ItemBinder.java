@@ -32,7 +32,7 @@ public class ItemBinder extends Item {
 	 @Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		 if(!worldIn.isRemote) {
+		 //if(!worldIn.isRemote) {
 		ILinkable block = (ILinkable) worldIn.getBlockState(pos).getBlock();
 		if(block != null) {
 			if(player.getHeldItem(hand).getTagCompound() == null) {
@@ -59,8 +59,8 @@ public class ItemBinder extends Item {
 			}
 		}
 		return EnumActionResult.FAIL;
-	 }
-		 return EnumActionResult.SUCCESS;
+	 
+		// return EnumActionResult.SUCCESS;
 		
 	}
 }
