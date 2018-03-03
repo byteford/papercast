@@ -13,7 +13,7 @@ public class linkedContainersPacketHandler implements IMessageHandler<linkedCont
 	@Override
 	public IMessage onMessage(linkedContainersPacket message, MessageContext ctx) {
 		//IThreadListener mainThread = (WorldServer)ctx.getClientHandler().;
-		ctx.getClientHandler().
+		//ctx.getClientHandler().
 //		mainThread.addScheduledTask(new Runnable() {
 //			
 //			@Override
