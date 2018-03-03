@@ -29,7 +29,7 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	
 	private static List<Item> accepts = new ArrayList<Item>();
 	private static List<infuserItem> makesList = new ArrayList<infuserItem>();
-	public int makeing;
+	public ItemStack makeing;
 	public InfuserTileEntity() {
 		//accepts.add(Item.getByNameOrId("minecraft:paper"));
 		
@@ -83,9 +83,9 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	}
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		if(slot==0) {
+		/*if(slot==0) {
 			return ItemStack.EMPTY;
-		}
+		}*/
 		return inventory.extractItem(slot, amount, simulate);
 	}
 	@Override
@@ -103,8 +103,8 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 				if(!hasBeenPowered) {
 					ItemStack stack = getStackInSlot(0);
 					//if(stack.getItem() == accepts.get(0)) {
-					if(accepts.contains(stack.getItem())) {
-						makeing = accepts.indexOf(stack.getItem());
+					if(isItemValidForSlot(0,stack)) {
+						makeing = InfuserManager.getRecipe(stack).get_output();
 						hasBeenPowered = true;
 						inventory.extractItem(0, 1, false);	
 					}else {
@@ -113,7 +113,7 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 				}
 			}else if (hasBeenPowered) {
 				hasBeenPowered = false;
-				inventory.insertItem(1, new ItemStack(makesList.get(makeing)), false);
+				inventory.insertItem(1, makeing, false);
 			}
 			
 			

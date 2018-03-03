@@ -4,6 +4,7 @@ import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
 import com.byteford.papercast.block.TileEntity.ManaContainerTileEntity;
 import com.byteford.papercast.block.TileEntity.WritingDeskTileEntity;
 
+import com.byteford.papercast.fluid.FluidManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -11,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,7 +37,7 @@ public class BlockManager {
 	public static void regiserBlocks(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(new MagicInfuser());
 		event.getRegistry().register(new WritingDesk());
-
+		FluidManager.registerFuildBlocks(event);
 		
 	}
 	public static void initialize(FMLInitializationEvent event) {

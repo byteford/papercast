@@ -2,6 +2,8 @@ package com.byteford.papercast;
 
 
 import com.byteford.papercast.Util.managers.InfuserManager;
+import com.byteford.papercast.fluid.FluidManager;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
@@ -60,12 +62,15 @@ public class paperCast {
 			return new ItemStack(ItemManager.magicpaper);
 		}
 	};
-	
+	static{
+		FluidRegistry.enableUniversalBucket();
+	}
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		LOGGER = event.getModLog();
 		proxy.preInit(event);
+
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGUIHandler());
 		netWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODNAME);
 		netWrapper.registerMessage(writtingPacketHandler.class, writingPacket.class, 0, Side.SERVER);
