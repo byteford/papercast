@@ -3,7 +3,9 @@ package com.byteford.papercast;
 
 import com.byteford.papercast.Util.managers.InfuserManager;
 import com.byteford.papercast.fluid.FluidManager;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
@@ -60,6 +62,13 @@ public class paperCast {
 		public ItemStack getTabIconItem() {
 			// TODO Auto-generated method stub
 			return new ItemStack(ItemManager.magicpaper);
+		}
+
+		@Override
+		public void displayAllRelevantItems(NonNullList<ItemStack> p_78018_1_) {
+            p_78018_1_.add(FluidUtil.getFilledBucket(new FluidStack(FluidManager.fluid_ink, Fluid.BUCKET_VOLUME)));
+			super.displayAllRelevantItems(p_78018_1_);
+
 		}
 	};
 	static{

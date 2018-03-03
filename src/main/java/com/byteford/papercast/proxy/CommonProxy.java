@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
-		FluidManager.preInit();
+		FluidManager.createBuckets();
 	}
 	public void init(FMLInitializationEvent event) {
 		ItemManager.initialize(event);

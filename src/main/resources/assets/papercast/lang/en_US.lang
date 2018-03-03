@@ -1,8 +1,11 @@
-item.magicpaper.name=MagicPaper
-
+#items
+item.magicpaper.name=Magic Paper
+item.magicquill.name=Magic Quill
+item.magiccrystal.name=Magic Crystal
+#creative tab
 itemGroup.papercast=PaperCast
-
+#blocks
 tile.writingdesk.name=Writing Desk
 tile.magicinfuser.name=Magic Infuser
-
-fluid.ink=Ink
+#fluids
+fluid.fluid_ink=Ink

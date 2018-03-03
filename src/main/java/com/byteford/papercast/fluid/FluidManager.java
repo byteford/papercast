@@ -8,13 +8,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,10 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @GameRegistry.ObjectHolder("papercast")
 public class FluidManager {
-    public  static  void preInit(){
-        registerAllFluids();
-        createBuckets();
-    }
     public  static  void registerAllFluids(){
         //fluidInk = new FluidCore("ink","papercast").setDensity(1000).setViscosity(2000);
         //fluidInk = new Fluid("ink",new ResourceLocation("papercast:ink"), new ResourceLocation("papercase:ink"));
@@ -33,9 +29,13 @@ public class FluidManager {
     }
     public  static  void createBuckets(){
         FluidRegistry.addBucketForFluid(fluid_ink);
+
+
+
     }
     public  static  void registerFuildBlocks(RegistryEvent.Register<Block> event){
         blockFluidInk = new BlockFluidClassic(fluid_ink, Material.WATER);
+
         blockFluidInk.setRegistryName("fluid_ink").setUnlocalizedName("fluid_ink").setCreativeTab(paperCast.tabPapercast);
         event.getRegistry().register(blockFluidInk);
     }
@@ -61,6 +61,6 @@ public class FluidManager {
     public  static  Fluid fluid_ink = createFluid(
             "fluid_ink",
             new ResourceLocation("papercast", "blocks/fluid_ink_still"),
-            new ResourceLocation("papercast","blocks/fluid_ink_flow"));
+            new ResourceLocation("papercast","blocks/fluid_ink_flow")).setViscosity((2000));
     public static  BlockFluidClassic blockFluidInk;
 }
