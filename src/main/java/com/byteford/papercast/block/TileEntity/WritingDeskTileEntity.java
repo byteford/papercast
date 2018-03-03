@@ -2,26 +2,19 @@ package com.byteford.papercast.block.TileEntity;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.Level;
 
 import com.byteford.papercast.paperCast;
-import com.byteford.papercast.block.BlockManaContainer;
 import com.byteford.papercast.items.ItemManager;
-import com.byteford.papercast.items.MagicPaper;
 import com.byteford.papercast.network.writingPacket;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;

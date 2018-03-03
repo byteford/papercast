@@ -1,6 +1,9 @@
 package com.byteford.papercast;
 
 
+import com.byteford.papercast.Util.managers.InfuserManager;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import com.byteford.papercast.GUI.ModGUIHandler;
@@ -76,5 +79,13 @@ public class paperCast {
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit(event);
+	}
+	@Mod.EventHandler
+	public void handleIMC(FMLInterModComms.IMCEvent event){
+		MangaerInitialize();
+	}
+	private void MangaerInitialize(){
+		InfuserManager.initialize();
+		LOGGER.log(Level.INFO,"Man done");
 	}
 }

@@ -18,7 +18,6 @@ public class ItemManager {
 	public static final MagicPaper magicpaper = null;
 	public static final MagicQuill magicquill = null;
 	public static final MagicCrystal magiccrystal = null;
-	public static final ItemBinder itembinder = null;
 	public ItemManager() {
 		
 	}
@@ -34,13 +33,11 @@ public class ItemManager {
 		ModelLoader.setCustomModelResourceLocation(magicpaper, 0, new ModelResourceLocation(magicpaper.getRegistryName(),"inventory"));
 		ModelLoader.setCustomModelResourceLocation(magicquill, 0, new ModelResourceLocation(magicquill.getRegistryName(),"inventory"));
 		ModelLoader.setCustomModelResourceLocation(magiccrystal, 0, new ModelResourceLocation(magiccrystal.getRegistryName(),"inventory"));
-		ModelLoader.setCustomModelResourceLocation(itembinder, 0, new ModelResourceLocation(itembinder.getRegistryName(),"inventory"));
 	}
 	public static void registerItems(Register<Item> event) {
 		event.getRegistry().register(new MagicPaper());
 		event.getRegistry().register(new MagicQuill());
 		event.getRegistry().register(new MagicCrystal());
-		event.getRegistry().register(new ItemBinder());	
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.byteford.papercast.Util.managers.InfuserManager;
 import com.byteford.papercast.items.ItemManager;
 import com.byteford.papercast.items.infuserItem;
 
@@ -69,13 +70,13 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 		// TODO Auto-generated method stub
 		return inventory.getStackInSlot(slot);
 	}
+	public boolean isItemValidForSlot(int slot, ItemStack stack){
+	    return slot != 0 || InfuserManager.recipeExixts(stack);
+    }
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		if(slot==1)
-			return stack;
 		// TODO Auto-generated method stub
-		if(accepts.contains(stack.getItem()))
-		//if(stack.getItem() == accepts.get(0))
+		if(isItemValidForSlot(slot,stack))
 			return inventory.insertItem(slot, stack, simulate);
 		
 		return stack;
