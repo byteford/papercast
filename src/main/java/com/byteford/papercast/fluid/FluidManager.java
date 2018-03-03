@@ -35,7 +35,9 @@ public class FluidManager {
         FluidRegistry.addBucketForFluid(fluid_ink);
     }
     public  static  void registerFuildBlocks(RegistryEvent.Register<Block> event){
-        event.getRegistry().register(new BlockFluidClassic(fluid_ink, Material.WATER).setRegistryName("fluid_ink").setUnlocalizedName("fluid_ink").setCreativeTab(paperCast.tabPapercast));
+        blockFluidInk = new BlockFluidClassic(fluid_ink, Material.WATER);
+        blockFluidInk.setRegistryName("fluid_ink").setUnlocalizedName("fluid_ink").setCreativeTab(paperCast.tabPapercast);
+        event.getRegistry().register(blockFluidInk);
     }
     public  static  Fluid createFluid(String fluidName, ResourceLocation stilTexture, ResourceLocation flowTexture){
         Fluid fluid = new Fluid(fluidName,stilTexture,flowTexture);
@@ -47,7 +49,7 @@ public class FluidManager {
         Item item = Item.getItemFromBlock(blockFluidInk);
 
         ModelBakery.registerItemVariants(item);
-        ModelResourceLocation location = new ModelResourceLocation("papercase:fluid", "ink");
+        ModelResourceLocation location = new ModelResourceLocation("papercast:fluid","fluid_ink");
         ModelLoader.setCustomMeshDefinition(item, stack -> location);
         ModelLoader.setCustomStateMapper(blockFluidInk,new StateMapperBase(){
             @Override
@@ -57,7 +59,7 @@ public class FluidManager {
         });
     }
     public  static  Fluid fluid_ink = createFluid(
-            "Ink",
+            "fluid_ink",
             new ResourceLocation("papercast", "blocks/fluid_ink_still"),
             new ResourceLocation("papercast","blocks/fluid_ink_flow"));
     public static  BlockFluidClassic blockFluidInk;
