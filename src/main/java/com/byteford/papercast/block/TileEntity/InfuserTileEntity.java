@@ -3,6 +3,7 @@ package com.byteford.papercast.block.TileEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.byteford.papercast.Util.managers.InfuserManager;
@@ -16,9 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.*;
 
 public class InfuserTileEntity extends TileEntity implements IItemHandlerModifiable, ITickable {
 	
@@ -83,18 +82,15 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	}
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		/*if(slot==0) {
+		if(slot==0) {
+
 			return ItemStack.EMPTY;
-		}*/
+		}
 		return inventory.extractItem(slot, amount, simulate);
 	}
 	@Override
 	public int getSlotLimit(int slot) {
 		return inventory.getSlotLimit(slot);
-	}
-	@Override
-	public void setStackInSlot(int slot, ItemStack stack) {
-		inventory.setStackInSlot(slot, stack);
 	}
 	@Override
 	public void update() {
@@ -118,6 +114,11 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 			
 			
 		}
+	}
+
+	@Override
+	public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
+		inventory.setStackInSlot(slot, stack);
 	}
 }
 
