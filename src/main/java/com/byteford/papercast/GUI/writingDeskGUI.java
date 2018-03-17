@@ -23,7 +23,7 @@ public class writingDeskGUI extends GuiContainer {
 	private InventoryPlayer playerInv;
 	WritingDeskContainer contioner;
 	
-	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(paperCast.MODID, "textures/gui/infuser.png");
+	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(paperCast.MODID, "textures/gui/writingdeskgui.png");
 	int top, left;
 	
 	Color colourSelected;
@@ -41,20 +41,20 @@ public class writingDeskGUI extends GuiContainer {
 		left = (width - xSize)/2;
 		top = (height - ySize)/2;
 		
-		this.addButton(new GuiButton(0, left + xSize/2 -5, top + 60,20,20, "GO"));
+		this.addButton(new GuiButton(0, left + 137, top + 14,20,20, "GO"));
 		
-		this.addButton(new colouredButton(1, left + (xSize/2), top + 25,10,10));
-		this.addButton(new colouredButton(2, left + (xSize/2) + 10, top + 25,10,10));
-		this.addButton(new colouredButton(3, left + (xSize/2) +20, top + 25,10,10));
-		this.addButton(new colouredButton(4, left + (xSize/2), top + 35,10,10));
-		this.addButton(new colouredButton(5, left + (xSize/2) +10, top + 35,10,10));
+	//	this.addButton(new colouredButton(1, left + (xSize/2), top + 25,10,10));
+	//	this.addButton(new colouredButton(2, left + (xSize/2) + 10, top + 25,10,10));
+	//	this.addButton(new colouredButton(3, left + (xSize/2) +20, top + 25,10,10));
+	//	this.addButton(new colouredButton(4, left + (xSize/2), top + 35,10,10));
+	//	this.addButton(new colouredButton(5, left + (xSize/2) +10, top + 35,10,10));
 		
 	//	if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(0))
-		this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10).setColour(Color.BLACK));
+	//	this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10).setColour(Color.BLACK));
 	//	if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(1))
-		this.addButton(new colouredButton(7, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.BLUE));
+	//	this.addButton(new colouredButton(7, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.BLUE));
 	//	if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(2))
-		this.addButton(new colouredButton(8, left + (xSize/2) + 40, top + 35, 10, 10).setColour(Color.RED));
+	//	this.addButton(new colouredButton(8, left + (xSize/2) + 40, top + 35, 10, 10).setColour(Color.RED));
 //		this.addButton(new colouredButton(9, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.WHITE));
 //		this.addButton(new colouredButton(10, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.blue)); //light blue
 //		this.addButton(new colouredButton(11, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.GREEN));
@@ -68,9 +68,7 @@ public class writingDeskGUI extends GuiContainer {
 		switch (button.id) {
 		case 0:
 			String paperval = "";
-			for(int i = 1; i < 6; i++) {
-				paperval += ((colouredButton)this.buttonList.get(i)).getColIDasChar();
-			}
+
 			((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).makePaper(paperval);
 			//contioner.writingDesk.makePaper();
 			break;
@@ -93,10 +91,6 @@ public class writingDeskGUI extends GuiContainer {
 		case 12:
 		case 13:
 		case 14:
-			if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(button.id - 6)) {
-			colourSelected = ((colouredButton)button).GetColour();
-			colourNum = button.id - 5;
-			}
 			break;
 		default:
 			break;

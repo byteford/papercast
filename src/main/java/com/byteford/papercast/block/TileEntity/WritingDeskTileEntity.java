@@ -23,57 +23,24 @@ import net.minecraftforge.items.ItemStackHandler;
 public class WritingDeskTileEntity extends TileEntity implements IItemHandlerModifiable {
 
 	
-	private static final int numberOfContainers = 9;
-	
-	private ItemStackHandler inventory = new ItemStackHandler(3);
+	private ItemStackHandler inventory = new ItemStackHandler(8);
 
-	private BlockPos[] linkedContainers = new BlockPos[numberOfContainers];
 	
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
-		compound.setTag("linked", getintArray());
 		return super.writeToNBT(compound);
 	}
-	private NBTTagIntArray getintArray() {
-		int[] pos = new int[numberOfContainers *3];
-		for(int i = 0; i< numberOfContainers ; i++) {
-			if(linkedContainers[i] != null) {
-				int[] temp = getIntsFromBlockPos(linkedContainers[i]);
-				pos[i*3] = temp[0];
-				pos[i*3 + 1] = temp[1];
-				pos[i*3 + 2] = temp[2];
-			}
-		}
-		NBTTagIntArray list = new NBTTagIntArray(pos);
-		return list;
-	}
+
 	private int[] getIntsFromBlockPos(BlockPos pos) {
 		return new int[] {pos.getX(),pos.getY(),pos.getZ()};
 	}
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
-		//deserializeNBT(compound);
-		linkedContainers = getBlockPosFromIntary(compound.getIntArray("linked"));
-		//containers = getContainersFromPoss(linkedContainers);
 		super.readFromNBT(compound);
 		
-	}
-	private BlockPos[] getBlockPosFromIntary(int[] intary) {
-		BlockPos[] temp = new BlockPos[numberOfContainers];
-		for(int i = 0; i< intary.length; i+= 3) {
-			temp[i/3] = new BlockPos(intary[i], intary[i+1], intary[i+2]);
-		}
-		return temp;
-	}
-	public boolean hasContainerAtId(int id) {
-		if(linkedContainers[id] == null) {
-			paperCast.LOGGER.info(Integer.toString(id) + " is null");
-			return false;
-		}
-		return world.getTileEntity(linkedContainers[id]) != null;
 	}
 
 	@Override
@@ -130,20 +97,4 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		inventory.setStackInSlot(slot, stack);
 		
 	}
-	
-	public boolean linkBlock(World worldIn,BlockPos Frompos, BlockPos topos) {
-		if(linkedContainers[0]!= null) {
-			paperCast.LOGGER.log(Level.INFO,"alreadyLinked to: " + linkedContainers[0]);
-			linkedContainers[0]= Frompos;
-			this.markDirty();
-			paperCast.LOGGER.log(Level.INFO,"rebound to: " + Frompos);
-			return false;
-		}else {
-			linkedContainers[0]= Frompos;
-			this.markDirty();
-			paperCast.LOGGER.log(Level.INFO,"Linked");
-			return true;
-		}
-	}
-
 }

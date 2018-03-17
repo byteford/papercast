@@ -35,7 +35,7 @@ public class ItemManager {
 		InfuserTileEntity.addItem(magicquill);
 		InfuserTileEntity.addItem(magiccrystal);
         NBTTagCompound tempNbt = new NBTTagCompound();
-        tempNbt.setTag("Potion",new NBTTagString("minecraft:water"));
+        tempNbt.setString("Potion","minecraft:water");
 		BrewingRecipeRegistry.addRecipe(new ItemStack(Items.POTIONITEM,1, 0,tempNbt),new ItemStack(Items.DYE,1),new ItemStack(inkbottle,1));
 	}
 	@SideOnly(Side.CLIENT)
