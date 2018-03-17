@@ -79,4 +79,5 @@ public class InfuserContainer extends Container {
 	
 		return itemstack;
 	}
+
 }

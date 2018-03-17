@@ -1,7 +1,7 @@
 package com.byteford.papercast.block;
 
 import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
-import com.byteford.papercast.block.TileEntity.ManaContainerTileEntity;
+import com.byteford.papercast.block.TileEntity.InkMakerTileEntity;
 import com.byteford.papercast.block.TileEntity.WritingDeskTileEntity;
 
 import com.byteford.papercast.fluid.FluidManager;
@@ -23,27 +23,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockManager {
 	public static final MagicInfuser magicinfuser = null;
 	public static final WritingDesk writingdesk = null;
-
+	public  static final InkMaker inkmaker = null;
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(magicinfuser), 0, new ModelResourceLocation(magicinfuser.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(writingdesk), 0, new ModelResourceLocation(writingdesk.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(inkmaker),0,new ModelResourceLocation(inkmaker.getRegistryName(),"inventory"));
 		FluidManager.initModels();
 	}
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(new ItemBlock(magicinfuser).setRegistryName(magicinfuser.getRegistryName()));
 		event.getRegistry().register(new ItemBlock(writingdesk).setRegistryName(writingdesk.getRegistryName()));
+		event.getRegistry().register(new ItemBlock(inkmaker).setRegistryName(inkmaker.getRegistryName()));
 		
 	}
 	public static void regiserBlocks(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(new MagicInfuser());
 		event.getRegistry().register(new WritingDesk());
+		event.getRegistry().register(new InkMaker());
 		FluidManager.registerFuildBlocks(event);
 		
 	}
 	public static void initialize(FMLInitializationEvent event) {
 		GameRegistry.registerTileEntity(InfuserTileEntity.class, "papercast:magicinfuser");
 		GameRegistry.registerTileEntity(WritingDeskTileEntity.class, "papercast:writingdesk");
-		GameRegistry.registerTileEntity(ManaContainerTileEntity.class, "papercast:manacontainer");
+		GameRegistry.registerTileEntity(InkMakerTileEntity.class,"papercast:inkmaker");
 	}
 }

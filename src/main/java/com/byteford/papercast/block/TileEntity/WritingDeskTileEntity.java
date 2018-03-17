@@ -75,11 +75,7 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		}
 		return world.getTileEntity(linkedContainers[id]) != null;
 	}
-	public ManaContainerTileEntity getContFromID(int id) {
-		//if(containers[id] != null)
-		return (ManaContainerTileEntity) world.getTileEntity(linkedContainers[id]);
-		//return null;
-	}
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);

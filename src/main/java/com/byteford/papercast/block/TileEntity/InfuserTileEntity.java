@@ -82,10 +82,7 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	}
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		if(slot==0) {
 
-			return ItemStack.EMPTY;
-		}
 		return inventory.extractItem(slot, amount, simulate);
 	}
 	@Override
