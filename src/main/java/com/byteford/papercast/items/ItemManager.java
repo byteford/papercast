@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -34,8 +35,8 @@ public class ItemManager {
 		InfuserTileEntity.addItem(magicquill);
 		InfuserTileEntity.addItem(magiccrystal);
         NBTTagCompound tempNbt = new NBTTagCompound();
-        tempNbt.setString("Potion","minecraft:water");
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipe(new ItemStack(Items.POTIONITEM,1, 0,tempNbt),new ItemStack(Items.DYE,1),new ItemStack(inkbottle,1)));
+        tempNbt.setTag("Potion",new NBTTagString("minecraft:water"));
+		BrewingRecipeRegistry.addRecipe(new ItemStack(Items.POTIONITEM,1, 0,tempNbt),new ItemStack(Items.DYE,1),new ItemStack(inkbottle,1));
 	}
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {

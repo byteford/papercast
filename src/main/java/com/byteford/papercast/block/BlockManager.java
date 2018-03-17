@@ -6,13 +6,11 @@ import com.byteford.papercast.block.TileEntity.WritingDeskTileEntity;
 
 import com.byteford.papercast.fluid.FluidManager;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockHopper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,6 +28,7 @@ public class BlockManager {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(writingdesk), 0, new ModelResourceLocation(writingdesk.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(inkmaker),0,new ModelResourceLocation(inkmaker.getRegistryName(),"inventory"));
 		FluidManager.initModels();
+
 	}
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(new ItemBlock(magicinfuser).setRegistryName(magicinfuser.getRegistryName()));
