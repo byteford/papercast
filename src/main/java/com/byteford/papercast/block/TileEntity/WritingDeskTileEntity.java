@@ -25,8 +25,6 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	
 	private ItemStackHandler inventory = new ItemStackHandler(8);
 
-	
-	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -79,7 +77,9 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		return inventory.insertItem(slot, stack, simulate);
+	    if(isItemValidForSlot(slot,stack))
+		    return inventory.insertItem(slot, stack, simulate);
+	    return stack;
 	}
 
 	@Override
@@ -96,5 +96,32 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 	public void setStackInSlot(int slot, ItemStack stack) {
 		inventory.setStackInSlot(slot, stack);
 		
+	}
+	public boolean isItemValidForSlot(int slot, ItemStack stack){
+
+		switch (slot){
+            //quill
+			case 0:
+			    if(stack.getItem() == ItemManager.magicquill)
+			        return true;
+				break;
+				//magicpaper
+			case 1:
+			    if(stack.getItem() == ItemManager.magicpaper)
+			        return true;
+				break;
+				//ink
+			case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                if(stack.getItem() == ItemManager.inkbottle)
+                    return true;
+                break;
+			default:
+				return true;
+		}
+		return false;
 	}
 }
