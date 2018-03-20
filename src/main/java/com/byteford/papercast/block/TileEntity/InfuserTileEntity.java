@@ -1,23 +1,21 @@
 package com.byteford.papercast.block.TileEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.byteford.papercast.Util.managers.InfuserManager;
-import com.byteford.papercast.items.ItemManager;
-import com.byteford.papercast.items.infuserItem;
 
-import net.minecraft.item.Item;
+import com.byteford.papercast.paperCast;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.*;
+import org.apache.logging.log4j.Level;
 
 public class InfuserTileEntity extends TileEntity implements IItemHandlerModifiable, ITickable {
 	
@@ -25,18 +23,20 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 	private ItemStackHandler inventory = new ItemStackHandler(2);
 	public boolean isPowered = false;
 	private boolean hasBeenPowered = false;
-	
-	private static List<Item> accepts = new ArrayList<Item>();
-	private static List<infuserItem> makesList = new ArrayList<infuserItem>();
-	public ItemStack makeing;
+    public InfuserManager.InfuserRecipe making;
+
+	//private static List<Item> accepts = new ArrayList<Item>();
+	//private static List<infuserItem> makesList = new ArrayList<infuserItem>();
+
+
 	public InfuserTileEntity() {
 		//accepts.add(Item.getByNameOrId("minecraft:paper"));
 		
 	}
-	public static void addItem(infuserItem makes) {
+	/*public static void addItem(infuserItem makes) {
 		accepts.add(makes.infusesFrom);
 		makesList.add(makes);
-	}
+	}*/
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -70,7 +70,7 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 		return inventory.getStackInSlot(slot);
 	}
 	public boolean isItemValidForSlot(int slot, ItemStack stack){
-	    return slot != 0 || InfuserManager.recipeExixts(stack);
+	    return slot != 0 || InfuserManager.recipeExists(stack);
     }
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
@@ -97,16 +97,21 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 					ItemStack stack = getStackInSlot(0);
 					//if(stack.getItem() == accepts.get(0)) {
 					if(isItemValidForSlot(0,stack)) {
-						makeing = InfuserManager.getRecipe(stack).get_output();
-						hasBeenPowered = true;
-						inventory.extractItem(0, 1, false);	
+						making = InfuserManager.getRecipe(stack);
+						if(making != null) {
+                            hasBeenPowered = true;
+                        }
 					}else {
-						
 					}
 				}
 			}else if (hasBeenPowered) {
 				hasBeenPowered = false;
-				inventory.insertItem(1, makeing, false);
+                paperCast.LOGGER.log(Level.ERROR,making.toString());
+				if(inventory.extractItem(0, 1, true).getItem() == making.getInput().getItem()) {
+                    inventory.insertItem(1, making.get_output(), false);
+                     inventory.extractItem(0, 1, false);
+                }
+                making = null;
 			}
 			
 			

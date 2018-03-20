@@ -27,16 +27,17 @@ public class ItemManager {
 	public static final MagicQuill magicquill = null;
 	public static final MagicCrystal magiccrystal = null;
 	public static  final InkBottle inkbottle = null;
+	public static  final MagicBottle magicbottle = null;
 	public ItemManager() {
 		
 	}
 	public static void initialize(FMLInitializationEvent event) {
-		InfuserTileEntity.addItem(magicpaper);
-		InfuserTileEntity.addItem(magicquill);
-		InfuserTileEntity.addItem(magiccrystal);
-        NBTTagCompound tempNbt = new NBTTagCompound();
-        tempNbt.setString("Potion","minecraft:water");
-		BrewingRecipeRegistry.addRecipe(new ItemStack(Items.POTIONITEM,1, 0,tempNbt),new ItemStack(Items.DYE,1),new ItemStack(inkbottle,1));
+	    //moved to InfuserManager
+		//InfuserTileEntity.addItem(magicpaper);
+		//InfuserTileEntity.addItem(magicquill);
+		//InfuserTileEntity.addItem(magiccrystal);
+		//InfuserTileEntity.addItem(magicbottle);
+		BrewingRecipeRegistry.addRecipe(new ItemStack(magicbottle,1),new ItemStack(Items.DYE,1),new ItemStack(inkbottle,1));
 	}
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
@@ -45,12 +46,14 @@ public class ItemManager {
 		ModelLoader.setCustomModelResourceLocation(magicquill, 0, new ModelResourceLocation(magicquill.getRegistryName(),"inventory"));
 		ModelLoader.setCustomModelResourceLocation(magiccrystal, 0, new ModelResourceLocation(magiccrystal.getRegistryName(),"inventory"));
 		ModelLoader.setCustomModelResourceLocation(inkbottle,0,new ModelResourceLocation(Items.POTIONITEM.getRegistryName(),"water"));
+		ModelLoader.setCustomModelResourceLocation(magicbottle,0,new ModelResourceLocation(magicbottle.getRegistryName(),"inventory"));
 	}
 	public static void registerItems(Register<Item> event) {
 		event.getRegistry().register(new MagicPaper());
 		event.getRegistry().register(new MagicQuill());
 		event.getRegistry().register(new MagicCrystal());
 		event.getRegistry().register(new InkBottle());
+		event.getRegistry().register(new MagicBottle());
 	}
 
 }
