@@ -3,6 +3,7 @@ package com.byteford.papercast.items;
 import com.byteford.papercast.block.BlockManager;
 import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
 
+import com.byteford.papercast.paperCast;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -24,19 +25,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @GameRegistry.ObjectHolder("papercast")
 public class ItemManager {
 	public static final MagicPaper magicpaper = null;
-	public static final MagicQuill magicquill = null;
-	public static final MagicCrystal magiccrystal = null;
-	public static  final InkBottle inkbottle = null;
-	public static  final MagicBottle magicbottle = null;
+	public static final Item magicquill = null;
+	public static final Item magiccrystal = null;
+	public static  final Item inkbottle = null;
+	public static  final Item magicbottle = null;
 	public ItemManager() {
 		
 	}
 	public static void initialize(FMLInitializationEvent event) {
-	    //moved to InfuserManager
-		//InfuserTileEntity.addItem(magicpaper);
-		//InfuserTileEntity.addItem(magicquill);
-		//InfuserTileEntity.addItem(magiccrystal);
-		//InfuserTileEntity.addItem(magicbottle);
 		BrewingRecipeRegistry.addRecipe(new ItemStack(magicbottle,1),new ItemStack(Items.DYE,1),new ItemStack(inkbottle,1));
 	}
 	@SideOnly(Side.CLIENT)
@@ -50,10 +46,10 @@ public class ItemManager {
 	}
 	public static void registerItems(Register<Item> event) {
 		event.getRegistry().register(new MagicPaper());
-		event.getRegistry().register(new MagicQuill());
-		event.getRegistry().register(new MagicCrystal());
-		event.getRegistry().register(new InkBottle());
-		event.getRegistry().register(new MagicBottle());
+        event.getRegistry().register(new Item().setUnlocalizedName("magicquill").setRegistryName("magicquill").setCreativeTab(paperCast.tabPapercast));
+		event.getRegistry().register(new Item().setUnlocalizedName("magiccrystal").setRegistryName("magiccrystal").setCreativeTab(paperCast.tabPapercast));
+        event.getRegistry().register(new Item().setUnlocalizedName("inkbottle").setRegistryName("inkbottle").setCreativeTab(paperCast.tabPapercast));
+        event.getRegistry().register(new Item().setUnlocalizedName("magicbottle").setRegistryName("magicbottle").setCreativeTab(paperCast.tabPapercast));
 	}
 
 }

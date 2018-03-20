@@ -1,12 +1,10 @@
 package com.byteford.papercast.block.container;
 
-import com.byteford.papercast.block.TileEntity.InfuserTileEntity;
+
 import com.byteford.papercast.block.TileEntity.WritingDeskTileEntity;
 
-import com.byteford.papercast.items.InkBottle;
-import com.byteford.papercast.items.ItemManager;
+
 import com.byteford.papercast.items.MagicPaper;
-import com.byteford.papercast.items.MagicQuill;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -34,13 +32,6 @@ public class WritingDeskContainer extends Container {
 				WritingDesk.markDirty();
 			}
 
-			@Override
-			public boolean isItemValid(@Nonnull ItemStack stack) {
-
-				if( stack.getItem() instanceof MagicQuill)
-					return true;
-				return false;
-			}
 		});
 		//magic paper input
 		addSlotToContainer(new SlotItemHandler(inventory, 1, 80, 35){
@@ -70,26 +61,12 @@ public class WritingDeskContainer extends Container {
             public void onSlotChanged() {
                 WritingDesk.markDirty();
             }
-            @Override
-            public boolean isItemValid(@Nonnull ItemStack stack) {
-
-                if( stack.getItem() instanceof InkBottle)
-                    return true;
-                return false;
-            }
         });
         // ink slot 2
         addSlotToContainer(new SlotItemHandler(inventory, 4, 108, 35){
             @Override
             public void onSlotChanged() {
                 WritingDesk.markDirty();
-            }
-            @Override
-            public boolean isItemValid(@Nonnull ItemStack stack) {
-
-                if( stack.getItem() instanceof InkBottle)
-                    return true;
-                return false;
             }
         });
         // ink slot 3
@@ -98,13 +75,6 @@ public class WritingDeskContainer extends Container {
             public void onSlotChanged() {
                 WritingDesk.markDirty();
             }
-            @Override
-            public boolean isItemValid(@Nonnull ItemStack stack) {
-
-                if( stack.getItem() instanceof InkBottle)
-                    return true;
-                return false;
-            }
         });
         //ink slot 4
         addSlotToContainer(new SlotItemHandler(inventory, 6, 67, 58){
@@ -112,26 +82,12 @@ public class WritingDeskContainer extends Container {
             public void onSlotChanged() {
                 WritingDesk.markDirty();
             }
-            @Override
-            public boolean isItemValid(@Nonnull ItemStack stack) {
-
-                if( stack.getItem() instanceof InkBottle)
-                    return true;
-                return false;
-            }
         });
         //ink slot 5
         addSlotToContainer(new SlotItemHandler(inventory, 7, 52, 35){
             @Override
             public void onSlotChanged() {
                 WritingDesk.markDirty();
-            }
-            @Override
-            public boolean isItemValid(@Nonnull ItemStack stack) {
-
-                if( stack.getItem() instanceof InkBottle)
-                    return true;
-                return false;
             }
         });
 
