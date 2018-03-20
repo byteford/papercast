@@ -4,7 +4,7 @@ import com.byteford.papercast.paperCast;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class MagicBottle extends infuserItem {
+public class MagicBottle extends Item {
 
     public  MagicBottle()
     {
@@ -12,7 +12,6 @@ public class MagicBottle extends infuserItem {
         setRegistryName("magicbottle");
         setUnlocalizedName("magicbottle");
         setCreativeTab(paperCast.tabPapercast);
-        infusesFrom = Item.getByNameOrId("minecraft:potion");
 
 
     }

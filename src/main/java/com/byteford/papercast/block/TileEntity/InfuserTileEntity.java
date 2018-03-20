@@ -26,17 +26,12 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
     public InfuserManager.InfuserRecipe making;
 
 	//private static List<Item> accepts = new ArrayList<Item>();
-	//private static List<infuserItem> makesList = new ArrayList<infuserItem>();
 
 
 	public InfuserTileEntity() {
 		//accepts.add(Item.getByNameOrId("minecraft:paper"));
 		
 	}
-	/*public static void addItem(infuserItem makes) {
-		accepts.add(makes.infusesFrom);
-		makesList.add(makes);
-	}*/
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());

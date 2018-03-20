@@ -19,14 +19,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 
-public class MagicPaper extends infuserItem {
+public class MagicPaper extends Item {
 	public MagicPaper() {
 		super();
 		setRegistryName("magicpaper");
 		setUnlocalizedName("magicpaper");
 		setCreativeTab(paperCast.tabPapercast);
-		infusesFrom = Item.getByNameOrId("minecraft:paper");
-		NBTTagCompound temp = new NBTTagCompound();
 		
 	}
 	public int getMaxItemUseDuration(ItemStack stack) {
