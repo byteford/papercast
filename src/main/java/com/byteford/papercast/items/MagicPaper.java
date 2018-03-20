@@ -25,6 +25,8 @@ public class MagicPaper extends Item {
 		setRegistryName("magicpaper");
 		setUnlocalizedName("magicpaper");
 		setCreativeTab(paperCast.tabPapercast);
+		NBTTagCompound temp = new NBTTagCompound();
+		this.updateItemStackNBT(temp);
 		
 	}
 	public int getMaxItemUseDuration(ItemStack stack) {
@@ -41,7 +43,8 @@ public class MagicPaper extends Item {
 		if(stack.hasTagCompound())
 			if(stack.getTagCompound().hasKey("effect")) {
 				String  temp1 = getPaperType(stack.getTagCompound().getString("effect")).toString();
-				
+				if(temp1 == "none")
+				    return "Magicpaper Error";
 				int temp2 = effect(stack.getTagCompound().getString("effect"));
 				return temp1 + ": " + Potion.getPotionById(temp2).getName();
 				}
@@ -106,6 +109,9 @@ public class MagicPaper extends Item {
 	
 	
 	public paperType getPaperType(String paperdata) {
+	    if(paperdata.equals("")) {
+            return paperType.none;
+        }
 		if(Character.getNumericValue(paperdata.charAt(0)) <0)
 			return paperType.none;
 		return paperType.values()[Character.getNumericValue(paperdata.charAt(0))];

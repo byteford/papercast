@@ -110,12 +110,14 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 			    if(stack.getItem() == ItemManager.magicpaper)
 			        return true;
 				break;
-				//ink
+				//output
 			case 2:
+			    break;
             case 3:
             case 4:
             case 5:
             case 6:
+            case 7:
                 if(stack.getItem() == ItemManager.inkbottle)
                     return true;
                 break;
