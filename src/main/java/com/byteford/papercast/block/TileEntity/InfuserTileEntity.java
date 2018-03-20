@@ -108,8 +108,10 @@ public class InfuserTileEntity extends TileEntity implements IItemHandlerModifia
 				hasBeenPowered = false;
                 paperCast.LOGGER.log(Level.ERROR,making.toString());
 				if(inventory.extractItem(0, 1, true).getItem() == making.getInput().getItem()) {
-                    inventory.insertItem(1, making.get_output(), false);
-                     inventory.extractItem(0, 1, false);
+				    if(getSlotLimit(1) > inventory.getStackInSlot(1).getCount()) {
+                        inventory.insertItem(1, making.get_output(), false);
+                        inventory.extractItem(0, 1, false);
+                    }
                 }
                 making = null;
 			}
