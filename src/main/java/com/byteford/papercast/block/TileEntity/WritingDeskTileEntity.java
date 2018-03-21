@@ -2,6 +2,8 @@ package com.byteford.papercast.block.TileEntity;
 
 import javax.annotation.Nullable;
 
+import com.byteford.papercast.Util.InkTypes;
+import com.byteford.papercast.Util.InkUtil;
 import org.apache.logging.log4j.Level;
 
 import com.byteford.papercast.paperCast;
@@ -53,14 +55,14 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)this: super.getCapability(capability, facing);
 	}
 	public void makePaper(String papervalue) {
-		paperCast.netWrapper.sendToServer(new writingPacket(papervalue,pos.getX() , pos.getY(), pos.getZ()));
-		//MakePaperServer();
+		paperCast.netWrapper.sendToServer(new writingPacket("",pos.getX() , pos.getY(), pos.getZ()));
 		
 	}
+
 	public void MakePaperServer(String papervalue) {
 		inventory.extractItem(1, 1, false);
 		NBTTagCompound temp = new NBTTagCompound();
-		temp.setString("effect", papervalue);
+		temp.setString("effect", InkUtil.InkToString(GetInk()));
 		ItemStack item = new ItemStack(ItemManager.magicpaper);
 		item.setTagCompound(temp);
 		inventory.insertItem(2,item, false);
@@ -97,6 +99,15 @@ public class WritingDeskTileEntity extends TileEntity implements IItemHandlerMod
 		inventory.setStackInSlot(slot, stack);
 		
 	}
+	public InkTypes[] GetInk(){
+	    InkTypes[] temp = new InkTypes[5];
+	    temp[0] = InkUtil.ItemToType(inventory.getStackInSlot(0));
+        temp[1] = InkUtil.ItemToType(inventory.getStackInSlot(1));
+        temp[2] = InkUtil.ItemToType(inventory.getStackInSlot(2));
+        temp[3] = InkUtil.ItemToType(inventory.getStackInSlot(2));
+        temp[4] = InkUtil.ItemToType(inventory.getStackInSlot(3));
+	    return temp;
+    }
 	public boolean isItemValidForSlot(int slot, ItemStack stack){
 
 		switch (slot){

@@ -25,9 +25,7 @@ public class writingDeskGUI extends GuiContainer {
 	
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(paperCast.MODID, "textures/gui/writingdeskgui.png");
 	int top, left;
-	
-	Color colourSelected;
-	int colourNum;
+
 	
 	public writingDeskGUI(Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
@@ -42,25 +40,7 @@ public class writingDeskGUI extends GuiContainer {
 		top = (height - ySize)/2;
 		
 		this.addButton(new GuiButton(0, left + 137, top + 14,20,20, "GO"));
-		
-	//	this.addButton(new colouredButton(1, left + (xSize/2), top + 25,10,10));
-	//	this.addButton(new colouredButton(2, left + (xSize/2) + 10, top + 25,10,10));
-	//	this.addButton(new colouredButton(3, left + (xSize/2) +20, top + 25,10,10));
-	//	this.addButton(new colouredButton(4, left + (xSize/2), top + 35,10,10));
-	//	this.addButton(new colouredButton(5, left + (xSize/2) +10, top + 35,10,10));
-		
-	//	if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(0))
-	//	this.addButton(new colouredButton(6, left + (xSize/2) + 40, top + 25, 10, 10).setColour(Color.BLACK));
-	//	if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(1))
-	//	this.addButton(new colouredButton(7, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.BLUE));
-	//	if(((WritingDeskTileEntity)mc.world.getTileEntity(contioner.writingDesk.getPos())).hasContainerAtId(2))
-	//	this.addButton(new colouredButton(8, left + (xSize/2) + 40, top + 35, 10, 10).setColour(Color.RED));
-//		this.addButton(new colouredButton(9, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.WHITE));
-//		this.addButton(new colouredButton(10, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.blue)); //light blue
-//		this.addButton(new colouredButton(11, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.GREEN));
-//		this.addButton(new colouredButton(12, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.green)); //dark green
-//		this.addButton(new colouredButton(13, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.YELLOW));
-//		this.addButton(new colouredButton(14, left + (xSize/2) + 50, top + 25, 10, 10).setColour(Color.)); //brown
+
 	}
 	
 	@Override
@@ -77,11 +57,6 @@ public class writingDeskGUI extends GuiContainer {
 		case 3:
 		case 4:
 		case 5:
-			if(colourSelected == null)
-				break;
-			((colouredButton)button).setColour(colourSelected);
-			((colouredButton)button).setcolID(colourNum);
-			break;
 		case 6:
 		case 7:
 		case 8:

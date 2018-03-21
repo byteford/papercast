@@ -1,5 +1,6 @@
 package com.byteford.papercast.items;
 
+import com.byteford.papercast.Util.InkTypes;
 import com.byteford.papercast.paperCast;
 import com.byteford.papercast.Util.paperType;
 
@@ -27,7 +28,6 @@ public class MagicPaper extends Item {
 		setCreativeTab(paperCast.tabPapercast);
 		NBTTagCompound temp = new NBTTagCompound();
 		this.updateItemStackNBT(temp);
-		
 	}
 	public int getMaxItemUseDuration(ItemStack stack) {
 		// TODO Auto-generated method stub
@@ -136,5 +136,5 @@ public class MagicPaper extends Item {
 	public int amplifiyer(String paperdata) {
 		return Character.getNumericValue(paperdata.charAt(3));
 	}
- 
+
 }
